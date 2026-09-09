@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Meine Zeit auf der AIDAsol – Weltreise 2026/27. Eine kleine Infoseite für Mama & Papa: Route, Live-Status, Schiff und Foto-Tagebuch.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a6ebd">
+<title>Meine Zeit auf der AIDAsol · Weltreise 2026/27</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
+
+<!-- Theme früh setzen, damit es nicht flackert -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("aidasol_theme");
+    if (!t) {
+      var h = new Date().getHours();
+      t = (h >= 6 && h < 18) ? "day" : "night";
+    }
+    document.documentElement.dataset.theme = t;
+  } catch (e) {
+    document.documentElement.dataset.theme = "day";
+  }
+})();
+</script>
+
+<style>
+  :root{
+    --maxw:1100px;
+    --radius:18px;
+    --shadow:0 10px 30px rgba(2,32,54,.12);
+    --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+
+  [data-theme="day"]{
+    color-scheme:light;
+    --bg:#eef6fc; --bg2:#e3f0fa; --card:#ffffff; --text:#12324a; --muted:#4a657c;
+    --accent:#0a6ebd; --accent2:#e07b00; --sea:#bfe3f7; --border:#cfe3f2;
+    --hero1:#8ecdf5; --hero2:#e7f6ff; --hero-text:#0c2c46;
+    --pill:rgba(255,255,255,.85); --pill-text:#0c2c46;
+    --btn-bg:rgba(255,255,255,.92); --btn-text:#0c2c46;
+    --overnight:#fff3e0; --overnight-border:#f6c78a;
+    --today:#e8f4ff; --today-glow:rgba(10,110,189,.25);
+    --progress-track:#d7e9f7; --progress-fill:#0a6ebd; --wave:#eef6fc;
+  }
+
+  [data-theme="night"]{
+    color-scheme:dark;
+    --bg:#0b1526; --bg2:#0e1c31; --card:#13243d; --text:#e8f1fb; --muted:#a7bcd4;
+    --accent:#7cc4ff; --accent2:#ffd166; --sea:#0e2a44; --border:#22405f;
+    --hero1:#081729; --hero2:#12325a; --hero-text:#eaf4ff;
+    --pill:rgba(255,255,255,.12); --pill-text:#eaf4ff;
+    --btn-bg:rgba(255,255,255,.14); --btn-text:#eaf4ff;
+    --overnight:#2a2413; --overnight-border:#7a5b1e;
+    --today:#123a5c; --today-glow:rgba(124,196,255,.25);
+    --progress-track:#16324e; --progress-fill:#7cc4ff; --wave:#0b1526;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    font-family:var(--font);
+    line-height:1.6;
+    font-size:1.06rem;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    overflow-wrap:anywhere;
+    hyphens:auto;
+    transition:background .5s,color .5s;
+  }
+
+  [hidden]{ display:none !important; }
+
+  a{ color:var(--accent); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+
+  :focus-visible{
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  ::selection{ background:var(--accent); color:#fff; }
+
+  img{ max-width:100%; height:auto; }
+
+  button{ font:inherit; cursor:pointer; }
+
+  h1,h2,h3,h4{ line-height:1.2; text-wrap:balance; margin:0; }
+  h2{ font-size:clamp(1.6rem,3.5vw,2.2rem); margin:.2rem 0 .6rem; }
+  h3{ font-size:1.25rem; margin:1.8rem 0 .8rem; }
+  p{ margin:.4rem 0 1rem; text-wrap:pretty; }
+
+  section{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:3.2rem 1.25rem;
+    scroll-margin-top:1rem;
+  }
+
+  .muted{ color:var(--muted); }
+  .small{ font-size:.9rem; }
+
+  .visually-hidden{
+    position:absolute !important;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--accent);
+    color:#fff;
+    padding:.6rem 1rem;
+    border-radius:0 0 10px 0;
+    z-index:100;
+  }
+  .skip-link:focus{ left:0; }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(180deg,var(--hero1),var(--hero2));
+    color:var(--hero-text);
+    padding:4.6rem 1.25rem 110px;
+  }
+
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:1050px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:2.5rem;
+  }
+
+  .hero-text{ flex:1 1 auto; min-width:0; }
+
+  .stars{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    opacity:0;
+    transition:opacity .8s;
+    background-image:
+      radial-gradient(1px 1px at 20px 30px,#fff,transparent),
+      radial-gradient(1px 1px at 60px 80px,rgba(255,255,255,.8),transparent),
+      radial-gradient(1.5px 1.5px at 110px 40px,#fff,transparent),
+      radial-gradient(1px 1px at 160px 90px,rgba(255,255,255,.7),transparent),
+      radial-gradient(1.5px 1.5px at 210px 20px,#fff,transparent),
+      radial-gradient(1px 1px at 260px 70px,rgba(255,255,255,.8),transparent);
+    background-repeat:repeat;
+    background-size:300px 130px;
+  }
+  [data-theme="night"] .stars{ opacity:1; }
+
+  .sky-icon{
+    position:absolute;
+    top:1.1rem;
+    left:1.1rem;
+    font-size:2rem;
+    z-index:1;
+    animation:bob 5s ease-in-out infinite;
+    text-shadow:0 4px 14px rgba(0,0,0,.18);
+  }
+
+  .theme-toggle{
+    position:absolute;
+    top:1rem;
+    right:1rem;
+    z-index:3;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--btn-bg);
+    color:var(--btn-text);
+    font-size:1.35rem;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow);
+    transition:transform .2s, background .3s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .theme-toggle:hover{ transform:scale(1.06) rotate(8deg); }
+
+  .eyebrow{
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:.85rem;
+    margin:0 0 .6rem;
+    color:var(--accent);
+  }
+
+  .hero h1{
+    font-size:clamp(2.1rem,6vw,3.4rem);
+    margin:.1rem 0 .5rem;
+  }
+
+  .ship-name{
+    color:var(--accent2);
+    font-style:italic;
+  }
+
+  .hero .dates{
+    font-size:1.15rem;
+    font-weight:600;
+    margin:.2rem 0 1rem;
+  }
+
+  .hero .intro{
+    max-width:720px;
+    margin:0 0 1.6rem;
+  }
+
+  .hero-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+
+  .nav-link{
+    display:inline-block;
+    padding:.6rem 1.1rem;
+    border-radius:999px;
+    background:var(--pill);
+    color:var(--pill-text);
+    font-weight:600;
+    border:1px solid var(--border);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .nav-link:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow);
+    text-decoration:none;
+  }
+
+  /* ---------- Polaroid ---------- */
+
+  .polaroid{
+    flex:0 0 300px;
+    margin:0;
+    background:#fff;
+    color:#2b2b2b;
+    padding:12px 12px 14px;
+    border-radius:6px;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+    transform:rotate(3deg);
+  }
+
+  .polaroid-photo{
+    position:relative;
+    aspect-ratio:1/1;
+    background:#ececec;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:.3rem;
+    color:#777;
+    font-weight:600;
+    overflow:hidden;
+  }
+
+  .polaroid-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .25s ease;
+  }
+
+  .polaroid-photo.clickable{ cursor:zoom-in; }
+  .polaroid-photo.clickable:hover img,
+  .polaroid-photo.clickable:focus-visible img{ transform:scale(1.03); }
+
+  /* kleiner Zoom-Hinweis unten rechts, erscheint beim Überfahren */
+  .polaroid-photo.clickable::after{
+    content:"🔍";
+    position:absolute;
+    right:8px;
+    bottom:8px;
+    background:rgba(0,0,0,.55);
+    border-radius:999px;
+    padding:.2rem .45rem;
+    font-size:.85rem;
+    opacity:0;
+    transition:opacity .2s;
+    pointer-events:none;
+  }
+  .polaroid-photo.clickable:hover::after,
+  .polaroid-photo.clickable:focus-visible::after{ opacity:1; }
+
+  .polaroid-photo.ph{
+    border:2px dashed #bbb;
+    background:#f7f7f7;
+  }
+
+  .polaroid-photo .cam{ font-size:2rem; }
+
+  .polaroid figcaption{
+    font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
+    text-align:center;
+    padding-top:.7rem;
+    font-size:1rem;
+  }
+
+  /* ---------- Lightbox (Polaroid vergrößert) ---------- */
+
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:1.5rem;
+  }
+
+  .lightbox-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(4,16,28,.82);
+    backdrop-filter:blur(3px);
+  }
+
+  .lightbox-box{
+    position:relative;
+    z-index:1;
+    margin:0;
+    background:#fff;
+    color:#2b2b2b;
+    padding:14px 14px 16px;
+    border-radius:8px;
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+    max-width:min(92vw,720px);
+    transform:rotate(1.5deg);
+    animation:lbIn .25s ease;
+  }
+
+  .lightbox-box img{
+    display:block;
+    width:100%;
+    max-height:78vh;
+    object-fit:contain;
+    background:#ececec;
+  }
+
+  .lightbox-box figcaption{
+    font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
+    text-align:center;
+    padding-top:.8rem;
+    font-size:1.05rem;
+  }
+
+  .lightbox-close{
+    position:absolute;
+    top:-14px;
+    right:-14px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-size:1.05rem;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
+    z-index:2;
+    transition:transform .15s;
+  }
+  .lightbox-close:hover{ transform:scale(1.1); }
+
+  @keyframes lbIn{
+    from{ opacity:0; transform:scale(.92) rotate(1.5deg); }
+    to{ opacity:1; transform:scale(1) rotate(1.5deg); }
+  }
+
+  .wave{
+    position:absolute;
+    left:0; right:0; bottom:-1px;
+    z-index:1;
+    pointer-events:none;
+  }
+  .wave svg{ display:block; width:100%; height:90px; }
+  .wave path{ fill:var(--wave); }
+
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+
+  /* ---------- Welcome ---------- */
+
+  .welcome{
+    max-width:var(--maxw);
+    margin:1.2rem auto 0;
+    padding:.8rem 1.1rem;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:6px solid var(--accent2);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- Cards / Grids ---------- */
+
+  .card,
+  .status-card,
+  .ship-item,
+  .stat,
+  .phase,
+  .diary-card,
+  .map-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- Bordzeit & Sonne ---------- */
+
+  .board-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.9rem;
+    justify-content:center;
+    align-items:stretch;
+    margin:1.2rem 0 .4rem;
+  }
+
+  .board-chip{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:.7rem 1.1rem;
+    font-weight:600;
+    box-shadow:var(--shadow);
+    font-variant-numeric:tabular-nums;
+    display:flex;
+    align-items:center;
+    gap:.45rem;
+    flex-wrap:wrap;
+  }
+
+  .board-chip .lab{
+    color:var(--accent2);
+    font-weight:800;
+  }
+
+  .sun-chip{
+    display:flex;
+    gap:.7rem;
+    align-items:center;
+    border-radius:12px;
+    padding:.6rem 1.1rem;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    background:var(--today);
+    transition:background .5s;
+  }
+
+  .sun-chip.night{ background:var(--bg2); }
+
+  .sun-ico{ font-size:1.6rem; }
+
+  #sunTitle{ font-weight:800; }
+
+  .sun-times{
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    font-size:.95rem;
+  }
+
+  .status-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1rem;
+    margin:1.2rem 0;
+  }
+
+  .status-card{
+    padding:1.2rem;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .status-card h3{
+    margin:.1rem 0 .7rem;
+    font-size:1.05rem;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  .cd-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:.5rem;
+    text-align:center;
+  }
+
+  .cd-box{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:.6rem .3rem;
+  }
+
+  .cd-num{
+    font-size:1.6rem;
+    font-weight:800;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .cd-lab{
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+  }
+
+  .cd-sub{
+    margin:.7rem 0 0;
+    color:var(--muted);
+    font-size:.95rem;
+  }
+
+  .progress-value{
+    font-size:2.2rem;
+    font-weight:800;
+    margin:.2rem 0;
+  }
+
+  .progress-bar{
+    position:relative;
+    height:14px;
+    background:var(--progress-track);
+    border-radius:999px;
+    margin:1.4rem 0 .9rem;
+  }
+
+  .progress-fill{
+    position:absolute;
+    left:0; top:0; bottom:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    border-radius:999px;
+    width:0;
+    transition:width 1.2s ease;
+  }
+
+  .ship-marker{
+    position:absolute;
+    top:-1.4rem;
+    left:0;
+    transform:translateX(-50%);
+    font-size:1.4rem;
+    transition:left 1.2s ease;
+    animation:bob 4s ease-in-out infinite;
+  }
+
+  .progress-sub{
+    color:var(--muted);
+    font-weight:600;
+  }
+
+  .where-title{
+    font-size:1.35rem;
+    font-weight:800;
+    margin:.2rem 0 .4rem;
+  }
+
+  .where-text{ color:var(--muted); }
+
+  .where-badge{
+    display:inline-block;
+    margin-top:.6rem;
+    padding:.3rem .7rem;
+    border-radius:999px;
+    background:var(--overnight);
+    border:1px solid var(--overnight-border);
+    font-size:.85rem;
+    font-weight:700;
+  }
+
+  .reunion{ border-color:var(--accent2); }
+  .reunion-title{
+    font-size:1.7rem;
+    font-weight:800;
+    color:var(--accent2);
+  }
+
+  .clock-line{
+    text-align:center;
+    color:var(--muted);
+    font-weight:600;
+    margin:.4rem 0;
+  }
+
+  .board-note{
+    text-align:center;
+    color:var(--muted);
+    font-size:.9rem;
+    margin:.2rem 0 0;
+  }
+
+  /* ---------- Live-Karte (VesselFinder) ---------- */
+
+  .map-card{
+    margin-top:1.8rem;
+    padding:1.2rem;
+  }
+
+  .map-card h3{ margin:.1rem 0 .8rem; }
+
+  .map-frame{
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:var(--bg2);
+    min-height:420px;
+  }
+
+  .map-frame iframe{
+    display:block;
+    width:100%;
+    height:420px;
+    border:0;
+  }
+
+  .map-note{ margin:.7rem 0 .8rem; }
+  .map-btn-row{ margin:0; }
+
+  /* ---------- Schiff ---------- */
+
+  .ship-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:.9rem;
+    margin:1.4rem 0;
+  }
+
+  .ship-item{
+    padding:1rem;
+    text-align:center;
+  }
+
+  .ship-num{
+    font-size:1.6rem;
+    font-weight:800;
+    color:var(--accent);
+  }
+
+  .ship-lab{
+    color:var(--muted);
+    font-size:.9rem;
+  }
+
+  .ship-note{
+    color:var(--muted);
+    font-size:.95rem;
+  }
+
+  .btn{
+    display:inline-block;
+    padding:.65rem 1.2rem;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:700;
+    border:none;
+    box-shadow:var(--shadow);
+    transition:transform .2s;
+  }
+  .btn:hover{
+    transform:translateY(-2px);
+    text-decoration:none;
+  }
+
+  .imo{
+    color:var(--muted);
+    font-size:.9rem;
+    margin-top:.4rem;
+  }
+
+  /* ---------- Route ---------- */
+
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:.9rem;
+    margin:1.4rem 0;
+  }
+
+  .stat{
+    padding:1rem;
+    text-align:center;
+  }
+
+  .stat-num{
+    font-size:1.9rem;
+    font-weight:800;
+    color:var(--accent);
+  }
+
+  .stat-lab{
+    color:var(--muted);
+    font-size:.9rem;
+  }
+
+  .phases{
+    display:grid;
+    gap:1rem;
+    margin:1.4rem 0;
+  }
+
+  .phase{
+    padding:1.2rem;
+    display:flex;
+    gap:1rem;
+    align-items:flex-start;
+    transition:border-color .3s, background .3s;
+  }
+
+  .phase-num{
+    flex:0 0 auto;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+  }
+
+  .phase-body{ flex:1; min-width:0; }
+
+  .phase-title{
+    font-weight:800;
+    font-size:1.1rem;
+    margin:0 0 .2rem;
+  }
+
+  .phase-range{
+    color:var(--muted);
+    font-size:.95rem;
+  }
+
+  .phase-days{
+    display:inline-block;
+    margin-left:.5rem;
+    padding:.15rem .6rem;
+    border-radius:999px;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--muted);
+  }
+
+  .phase-text{ margin:.5rem 0 0; }
+
+  .phase-badge{
+    display:inline-block;
+    margin-top:.6rem;
+    padding:.3rem .7rem;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:700;
+  }
+
+  .phase.active{
+    border-color:var(--accent);
+    background:var(--today);
+  }
+  .phase.active .phase-badge{
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .phase.done{ opacity:.75; }
+  .phase.done .phase-num{ background:var(--muted); }
+  .phase.done .phase-badge{
+    background:var(--bg2);
+    color:var(--muted);
+    border:1px solid var(--border);
+  }
+
+  .legend{
+    color:var(--muted);
+    font-size:.92rem;
+    margin:.2rem 0 1rem;
+  }
+
+  .port-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:.9rem;
+  }
+
+  .phase-header{
+    grid-column:1/-1;
+    margin:1.6rem 0 .2rem;
+    font-size:1rem;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  .port-card,
+  .waypoint-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:.9rem;
+    display:flex;
+    gap:.8rem;
+    align-items:flex-start;
+    box-shadow:0 4px 14px rgba(2,32,54,.08);
+    position:relative;
+    transition:transform .2s, opacity .3s, border-color .3s, background .3s;
+  }
+
+  .port-card:hover{ transform:translateY(-3px); }
+
+  .waypoint-card{
+    background:var(--bg2);
+    border:2px dashed var(--accent);
+  }
+  .waypoint-card.end{ border-color:var(--accent2); }
+
+  .port-ico{ font-size:1.7rem; line-height:1.2; }
+
+  .port-info{ flex:1; min-width:0; }
+
+  .port-name{ font-weight:700; }
+
+  .port-anchor{ color:var(--accent2); }
+
+  .port-tag{
+    display:inline-block;
+    margin-left:.4rem;
+    padding:.12rem .5rem;
+    border-radius:999px;
+    background:var(--accent);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    vertical-align:middle;
+  }
+
+  .port-land{
+    color:var(--muted);
+    font-size:.9rem;
+  }
+
+  .port-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-top:.45rem;
+  }
+
+  .port-date,
+  .port-temp{
+    font-size:.82rem;
+    padding:.18rem .55rem;
+    border-radius:999px;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .port-check,
+  .port-pin{
+    position:absolute;
+    top:.6rem;
+    right:.6rem;
+    font-size:1rem;
+  }
+
+  .port-card.overnight{
+    background:var(--overnight);
+    border-color:var(--overnight-border);
+  }
+
+  .port-card.visited,
+  .waypoint-card.visited{ opacity:.55; }
+
+  .port-card.today,
+  .waypoint-card.today{
+    border-color:var(--accent);
+    background:var(--today);
+    box-shadow:0 0 0 3px var(--today-glow);
+  }
+
+  .source-note{
+    color:var(--muted);
+    font-size:.9rem;
+    margin-top:1.2rem;
+  }
+
+  /* ---------- Tagebuch ---------- */
+
+  .diary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:1rem;
+    margin-top:1.2rem;
+  }
+
+  .diary-card{
+    padding:1rem;
+    transition:transform .2s;
+  }
+  .diary-card:hover{ transform:translateY(-4px); }
+
+  .photo-slot{
+    aspect-ratio:4/3;
+    border-radius:12px;
+    border:2px dashed var(--border);
+    background:var(--bg2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--muted);
+    font-weight:600;
+    margin-bottom:.8rem;
+    flex-direction:column;
+    gap:.3rem;
+  }
+
+  .photo-slot .cam{ font-size:2rem; }
+
+  .diary-date{
+    color:var(--accent);
+    font-weight:700;
+    font-size:.9rem;
+    margin:0 0 .2rem;
+  }
+
+  .diary-title{
+    margin:0 0 .3rem;
+    font-size:1.05rem;
+  }
+
+  .diary-text{
+    color:var(--muted);
+    margin:0;
+    font-size:.95rem;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer{
+    background:var(--hero2);
+    border-top:1px solid var(--border);
+    text-align:center;
+    padding:3rem 1.25rem 2.2rem;
+    margin-top:3rem;
+    color:var(--hero-text);
+  }
+
+  .footer-heart{
+    font-size:2rem;
+    margin:0 0 .5rem;
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.12); }
+  }
+
+  .footer-line{
+    font-weight:700;
+    margin:.2rem 0;
+  }
+
+  .footer-small{
+    color:var(--muted);
+    font-size:.85rem;
+    margin-top:1rem;
+  }
+
+  /* ---------- Nach oben ---------- */
+
+  .to-top{
+    position:fixed;
+    right:1rem;
+    bottom:1rem;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--accent);
+    font-size:1.3rem;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:.3s;
+    z-index:60;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .to-top.show{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+  }
+  .to-top:hover{ transform:translateY(-3px); }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible{
+    opacity:1;
+    transform:none;
+  }
+  html.no-js .reveal{
+    opacity:1;
+    transform:none;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width:900px){
+    .hero-inner{
+      flex-direction:column;
+      gap:1.8rem;
+      align-items:center;
+    }
+    .hero-text{ text-align:center; }
+    .hero .intro{ margin:0 auto 1.6rem; }
+    .hero-nav{ justify-content:center; }
+    .polaroid{ flex:none; width:min(320px,88%); transform:rotate(2deg); }
+  }
+
+  @media (max-width:640px){
+    .hero{ padding-top:4.2rem; }
+    .cd-grid{ grid-template-columns:repeat(4,1fr); }
+    .phase{ flex-direction:column; }
+    .phase-num{ width:38px; height:38px; }
+    .port-grid{ grid-template-columns:1fr; }
+    .status-grid{ grid-template-columns:1fr; }
+    .ship-grid{ grid-template-columns:repeat(2,1fr); }
+    .stats-row{ grid-template-columns:repeat(2,1fr); }
+    .map-frame{ min-height:320px; }
+    .map-frame iframe{ height:320px; }
+    .board-row{ flex-direction:column; align-items:stretch; }
+    .lightbox{ padding:1rem; }
+    .lightbox-close{ top:-12px; right:-6px; }
+  }
+
+  @media (max-width:400px){
+    .ship-grid{ grid-template-columns:1fr; }
+    .stats-row{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Reduzierte Bewegung ---------- */
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *, *::before, *::after{
+      animation:none !important;
+      transition:none !important;
+    }
+    .reveal{
+      opacity:1;
+      transform:none;
+    }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="hero">
+  <div class="stars" aria-hidden="true"></div>
+  <span id="skyIcon" class="sky-icon" aria-hidden="true">☀️</span>
+
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Nachtmodus aktivieren">
+    <span id="themeIcon" aria-hidden="true">🌙</span>
+  </button>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">⚓ nur für Mama &amp; Papa</p>
+      <h1>Meine Zeit auf der <em class="ship-name">AIDAsol</em></h1>
+      <p class="dates">02.10.2026 → 02.03.2027</p>
+      <p class="intro">
+        Damit ihr immer wisst, wo ich gerade unterwegs bin und was als Nächstes ansteht, habe ich euch diese kleine Seite gebaut.
+        Schaut jederzeit vorbei — sie zeigt euch automatisch den aktuellen Stand, ganz ohne dass ich etwas tun muss.
+      </p>
+
+      <nav class="hero-nav" aria-label="Bereiche">
+        <a class="nav-link" href="#status">📍 Live-Status</a>
+        <a class="nav-link" href="#schiff">🚢 Das Schiff</a>
+        <a class="nav-link" href="#route">🧭 Die Route</a>
+        <a class="nav-link" href="#tagebuch">📷 Foto-Tagebuch</a>
+      </nav>
+    </div>
+
+    <!-- Polaroid: Bild & Caption kannst du im Script unten im POLAROID-Block ändern.
+         Klick auf das Foto öffnet es groß (Lightbox). -->
+    <figure class="polaroid" aria-label="Aktuelles Reisefoto">
+      <div class="polaroid-photo" id="polaroidPhoto">
+        <img id="polaroidImg" alt="Aktuelles Reisefoto">
+      </div>
+      <figcaption id="polaroidCaption">📍 Hier mal ein Foto aus Rio 🌞</figcaption>
+    </figure>
+  </div>
+
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,64 L1440,120 L0,120 Z"></path>
+    </svg>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- Persönliche Begrüßung bei erneutem Besuch -->
+  <div id="welcome" class="welcome" hidden role="status"></div>
+
+  <!-- ==================== LIVE-STATUS ==================== -->
+  <section id="status" class="section reveal" aria-labelledby="status-title">
+    <h2 id="status-title">📍 Live-Status</h2>
+    <p class="muted">Diese Übersicht aktualisiert sich automatisch anhand des heutigen Datums — ihr müsst nichts tun.</p>
+
+    <!-- Bordzeit (Hafen-Zeitzone) + Sonne -->
+    <div class="board-row">
+      <div class="board-chip">
+        🕒 <span class="lab">Bei mir an Bord:</span>
+        <strong id="shipClock">--:--:--</strong>
+        <span class="muted" id="shipTzLabel">Uhr</span>
+      </div>
+
+      <div class="sun-chip" id="sunChip">
+        <span class="sun-ico" id="sunIco" aria-hidden="true">🌞</span>
+        <div>
+          <div id="sunTitle">Lade Sonnen-Daten …</div>
+          <div class="sun-times">Aufgang: <span id="sunrise">--:--</span> | Untergang: <span id="sunset">--:--</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-grid">
+      <!-- Countdown -->
+      <article class="status-card reveal">
+        <h3 id="cdTitle">Countdown</h3>
+        <div class="cd-grid">
+          <div class="cd-box">
+            <div class="cd-num" id="cdD">--</div>
+            <div class="cd-lab">Tage</div>
+          </div>
+          <div class="cd-box">
+            <div class="cd-num" id="cdH">--</div>
+            <div class="cd-lab">Std.</div>
+          </div>
+          <div class="cd-box">
+            <div class="cd-num" id="cdM">--</div>
+            <div class="cd-lab">Min.</div>
+          </div>
+          <div class="cd-box">
+            <div class="cd-num" id="cdS">--</div>
+            <div class="cd-lab">Sek.</div>
+          </div>
+        </div>
+        <p class="cd-sub" id="cdSub"></p>
+      </article>
+
+      <!-- Fortschritt -->
+      <article class="status-card reveal">
+        <h3>Reisefortschritt</h3>
+        <div class="progress-value" id="pct">0 %</div>
+        <div class="progress-bar" role="img" aria-label="Fortschritt der Weltreise">
+          <span class="ship-marker" id="shipPos" aria-hidden="true">🚢</span>
+          <div class="progress-fill" id="barFill"></div>
+        </div>
+        <p class="progress-sub" id="progressSub">Lade …</p>
+      </article>
+
+      <!-- Wo bin ich heute? -->
+      <article class="status-card reveal">
+        <h3>Wo bin ich heute?</h3>
+        <div class="where-title" id="whereTitle">Lade …</div>
+        <div class="where-text" id="whereText"></div>
+        <span class="where-badge" id="whereBadge" hidden></span>
+      </article>
+
+      <!-- Wiedersehen -->
+      <article class="status-card reunion reveal">
+        <h3>♥ Wiedersehen</h3>
+        <div class="reunion-title" id="reunionTitle">Lade …</div>
+        <p class="where-text" id="reunionText"></p>
+      </article>
+    </div>
+
+    <p class="clock-line">
+      🏠 Eure Zeit zu Hause: <strong id="clock">--.--.---- · --:--:-- Uhr</strong>
+    </p>
+    <p class="board-note">
+      Hinweis: Im Hafen gilt die lokale Hafenzeit, auf See stellt die Crew die Bordzeit üblicherweise auf den nächsten Hafen um.
+      Zum Telefonieren stimmen wir uns am besten kurz per Nachricht ab.
+    </p>
+
+    <!-- Eingebettete VesselFinder-Livekarte + Button direkt darunter -->
+    <div class="map-card reveal">
+      <h3>🗺️ Live-Karte: Wo ist die AIDAsol gerade?</h3>
+
+      <div class="map-frame">
+        <!-- Offizieller VesselFinder-Embed-Code (vesselfinder.com/de/embed),
+             konfiguriert für die AIDAsol (IMO 9490040) -->
+        <script type="text/javascript">
+          // Kartendarstellung
+          var width = "100%";        // Breite
+          var height = "420";        // Höhe in Pixel
+          var names = true;          // Schiffsnamen immer anzeigen
+          // Einzelnes Schiff verfolgen
+          var imo = "9490040";       // AIDAsol
+          var show_track = true;     // Route der letzten 24 Stunden anzeigen
+        </script>
+        <script type="text/javascript" src="https://www.vesselfinder.com/aismap.js"></script>
+      </div>
+
+      <p class="map-note muted small">
+        Die Karte lädt live von VesselFinder (AIS) und braucht dafür Internet.
+        Falls sie mal nicht lädt (z. B. offline oder Adblocker), öffnet die große Karte einfach über den Button unten.
+      </p>
+      <p class="map-btn-row">
+        <a class="btn" href="https://www.vesselfinder.com/de/vessels/details/9490040" target="_blank" rel="noopener noreferrer">
+          Große Karte auf VesselFinder ↗
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SCHIFF ==================== -->
+  <section id="schiff" class="section reveal" aria-labelledby="schiff-title">
+    <h2 id="schiff-title">Mein Zuhause auf Zeit</h2>
+    <h3>Die AIDAsol im Überblick</h3>
+    <p class="muted">
+      Ein paar Eckdaten zum Schiff, auf dem ich die nächsten Monate lebe und arbeite —
+      falls ihr euch schon immer gefragt habt, wie groß so ein „kleines Zuhause auf dem Wasser“ eigentlich ist.
+    </p>
+
+    <div class="ship-grid">
+      <div class="ship-item reveal"><div class="ship-num">253 m</div><div class="ship-lab">Länge</div></div>
+      <div class="ship-item reveal"><div class="ship-num">32 m</div><div class="ship-lab">Breite</div></div>
+      <div class="ship-item reveal"><div class="ship-num">71.300</div><div class="ship-lab">BRZ (Tonnage)</div></div>
+      <div class="ship-item reveal"><div class="ship-num">~22 kn</div><div class="ship-lab">Reisegeschwindigkeit</div></div>
+      <div class="ship-item reveal"><div class="ship-num">14</div><div class="ship-lab">Decks</div></div>
+      <div class="ship-item reveal"><div class="ship-num">1.097</div><div class="ship-lab">Kabinen</div></div>
+      <div class="ship-item reveal"><div class="ship-num">bis 2.194</div><div class="ship-lab">Gäste</div></div>
+      <div class="ship-item reveal"><div class="ship-num">~609</div><div class="ship-lab">Crew an Bord</div></div>
+      <div class="ship-item reveal"><div class="ship-num">2011</div><div class="ship-lab">Baujahr, Meyer Werft</div></div>
+    </div>
+
+    <p class="ship-note">
+      Live-Position via VesselFinder (AIS) · aktualisiert sich automatisch.<br>
+      Die eingebettete Live-Karte findet ihr oben im <a href="#status">Live-Status</a> —
+      der Button direkt darunter öffnet die große Karte auf VesselFinder.
+    </p>
+
+    <p class="imo">IMO 9490040 · MMSI 247302900</p>
+  </section>
+
+  <!-- ==================== ROUTE ==================== -->
+  <section id="route" class="section reveal" aria-labelledby="route-title">
+    <h2 id="route-title">Wohin es geht</h2>
+    <h3>Die große Reise</h3>
+    <p class="muted">
+      Herzstück meiner Zeit an Bord ist die achte Weltreise der AIDAsol: 126 Tage rund um den Globus,
+      vom 18. Oktober 2026 bis zum 21. Februar 2027. Davor und danach bin ich zur Vorbereitung bzw.
+      zum Ausklang mit an Bord — insgesamt ergibt das meinen ganzen Einsatzzeitraum.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat reveal"><div class="stat-num">126</div><div class="stat-lab">Tage Weltreise</div></div>
+      <div class="stat reveal"><div class="stat-num">4</div><div class="stat-lab">Kontinente</div></div>
+      <div class="stat reveal"><div class="stat-num">20</div><div class="stat-lab">Länder</div></div>
+      <div class="stat reveal"><div class="stat-num">43</div><div class="stat-lab">Häfen</div></div>
+      <div class="stat reveal"><div class="stat-num">2×</div><div class="stat-lab">Äquatorüberquerung</div></div>
+    </div>
+
+    <div class="phases">
+      <article class="phase reveal">
+        <div class="phase-num" aria-hidden="true">0</div>
+        <div class="phase-body">
+          <div class="phase-title">Aufstieg &amp; Vorbereitung <span class="phase-days">16 Tage</span></div>
+          <div class="phase-range">02.10. – 18.10.2026</div>
+          <p class="phase-text">Ich schiffe in Hamburg ein, lerne Schiff und Crew kennen und bereite alles für die große Reise vor.</p>
+          <span class="phase-badge" hidden></span>
+        </div>
+      </article>
+
+      <article class="phase reveal">
+        <div class="phase-num" aria-hidden="true">1</div>
+        <div class="phase-body">
+          <div class="phase-title">Hamburg → San Antonio (Chile) <span class="phase-days">44 Tage</span></div>
+          <div class="phase-range">18.10. – 01.12.2026</div>
+          <p class="phase-text">Über den Atlantik, vorbei an den Kanaren, tief in den Amazonas (u. a. Santarém und Boca da Valeria) und um das berühmte Kap Hoorn an der Südspitze Südamerikas.</p>
+          <span class="phase-badge" hidden></span>
+        </div>
+      </article>
+
+      <article class="phase reveal">
+        <div class="phase-num" aria-hidden="true">2</div>
+        <div class="phase-body">
+          <div class="phase-title">San Antonio → Mauritius <span class="phase-days">49 Tage</span></div>
+          <div class="phase-range">01.12.2026 – 19.01.2027</div>
+          <p class="phase-text">Über den Pazifik zur Osterinsel und durch die Südsee (Französisch-Polynesien, u. a. Tahiti), dann sechs Häfen in Australien — inklusive Silvester-Feuerwerk in Sydney am 31.12.</p>
+          <span class="phase-badge" hidden></span>
+        </div>
+      </article>
+
+      <article class="phase reveal">
+        <div class="phase-num" aria-hidden="true">3</div>
+        <div class="phase-body">
+          <div class="phase-title">Mauritius → Hamburg <span class="phase-days">33 Tage</span></div>
+          <div class="phase-range">19.01. – 21.02.2027</div>
+          <p class="phase-text">Über den Indischen Ozean (La Réunion), am Kap der Guten Hoffnung vorbei nach Kapstadt und Namibia, dann über die Kanaren zurück nach Hamburg.</p>
+          <span class="phase-badge" hidden></span>
+        </div>
+      </article>
+
+      <article class="phase reveal">
+        <div class="phase-num" aria-hidden="true">4</div>
+        <div class="phase-body">
+          <div class="phase-title">Ausklang &amp; Abstieg <span class="phase-days">9 Tage</span></div>
+          <div class="phase-range">21.02. – 02.03.2027</div>
+          <p class="phase-text">Direkt im Anschluss startet laut Fahrplan eine kurze Nordland-Kreuzfahrt ab Hamburg — ich bin voraussichtlich bis zu meinem letzten Arbeitstag mit an Bord, bevor es nach Hause geht.</p>
+          <span class="phase-badge" hidden></span>
+        </div>
+      </article>
+    </div>
+
+    <p class="muted small">
+      Kleiner Hinweis: Die Route basiert auf dem öffentlichen AIDA-Fahrplan und kann sich noch ändern.
+      Mein genauer persönlicher Einsatz an Bord kann außerdem leicht abweichen — diese Übersicht dient euch
+      vor allem zur groben Orientierung, wo das Schiff wann etwa unterwegs ist.
+    </p>
+
+    <h3 class="ports-title">Alle Häfen im Überblick</h3>
+    <p class="legend">
+      ⚓︎ = Übernachtung an Bord im Hafen · ✓ = schon besucht · 📍 = heute ·
+      Temperaturen sind typische historische Durchschnittswerte für den Reisemonat.
+    </p>
+
+    <div id="portList" class="port-grid" aria-live="off">
+      <p class="muted">Lade Häfen …</p>
+    </div>
+
+    <noscript>
+      <p class="muted">
+        Hinweis: Bitte JavaScript aktivieren, damit die automatische Hafen-Übersicht, der Countdown und
+        die „Wo bin ich heute?“-Anzeige funktionieren. Die übrigen Texte auf dieser Seite sind trotzdem sichtbar.
+      </p>
+    </noscript>
+
+    <p class="source-note">
+      Datenquelle: öffentlicher AIDAsol-Routenplan der Weltreise 2026/27. Ankunftsdaten, Ankerplätze statt Anleger
+      und Reihenfolge können sich durch Wetter, Hafenkapazität o. Ä. noch ändern. Das angezeigte Wetter basiert auf
+      typischen historischen Durchschnittswerten für diesen Reisemonat.
+    </p>
+  </section>
+
+  <!-- ==================== TAGEBUCH ==================== -->
+  <section id="tagebuch" class="section reveal" aria-labelledby="tagebuch-title">
+    <h2 id="tagebuch-title">Von unterwegs</h2>
+    <h3>Foto-Tagebuch</h3>
+    <p class="muted">
+      Hier sammle ich Fotos und kurze Updates von den schönsten Momenten der Reise.
+      Die Seite ist fest, ich aktualisiere die Karten also von Hand, sobald ich an Land Internet habe —
+      schaut also gerne ab und zu wieder vorbei.
+    </p>
+
+    <div class="diary-grid">
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">02.10.2026</p>
+        <h4 class="diary-title">Aufstieg in Hamburg</h4>
+        <p class="diary-text">Update folgt, sobald es losgeht.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">November 2026</p>
+        <h4 class="diary-title">Amazonas-Erlebnis</h4>
+        <p class="diary-text">Vier Tage auf dem Fluss, u. a. Santarém.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">Ende November 2026</p>
+        <h4 class="diary-title">Kap Hoorn</h4>
+        <p class="diary-text">Die Südspitze Südamerikas.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">24.–25.12.2026</p>
+        <h4 class="diary-title">Weihnachten auf See</h4>
+        <p class="diary-text">Update folgt.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">31.12.2026</p>
+        <h4 class="diary-title">Silvester in Sydney</h4>
+        <p class="diary-text">Feuerwerk über dem Hafen.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">Februar 2027</p>
+        <h4 class="diary-title">Kapstadt</h4>
+        <p class="diary-text">Update folgt.</p>
+      </article>
+
+      <article class="diary-card reveal">
+        <div class="photo-slot"><span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span></div>
+        <p class="diary-date">02.03.2027</p>
+        <h4 class="diary-title">Zurück in Hamburg</h4>
+        <p class="diary-text">I freu mich schon auf euch!</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-heart" aria-hidden="true">♥</div>
+  <p class="footer-line">Bis bald, ich hab euch lieb ♥</p>
+  <p class="footer-line">Diese Seite läuft ganz von selbst — kommt einfach jederzeit wieder vorbei.</p>
+  <p class="footer-small">Meine Zeit auf der AIDAsol · 02.10.2026 – 02.03.2027</p>
+</footer>
+
+<!-- Lightbox: öffnet das Polaroid-Foto groß im Vordergrund -->
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox-backdrop" data-close></div>
+  <figure class="lightbox-box" role="dialog" aria-modal="true" aria-label="Vergrößertes Reisefoto">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Bild schließen">✕</button>
+    <img id="lightboxImg" alt="Vergrößertes Reisefoto">
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
+</div>
+
+<button id="toTop" class="to-top" type="button" aria-label="Nach oben scrollen">↑</button>
+
+<script>
+/* =========================================================
+   AIDAsol Weltreise 2026/27 – Live-Logik
+   Alles läuft lokal im Browser, ohne eigenen Server.
+   ========================================================= */
+
+document.documentElement.classList.remove("no-js");
+
+/* =========================================================
+   🔧 POLAROID – hier jederzeit ändern!
+   src:     URL oder Dateiname neben dieser HTML, z. B. "foto1.jpg"
+            (leer lassen = Platzhalter „Foto folgt“)
+   caption: die handschriftliche Zeile unter dem Foto
+   alt:     Bildbeschreibung (für Screenreader)
+   Tipp:    Klick auf das Foto öffnet es groß (Lightbox).
+   ========================================================= */
+const POLAROID = {
+  src: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fa.cdn-hotels.com%2Fgdcs%2Fproduction143%2Fd357%2F42fb6908-dcd5-4edb-9f8c-76208494af80.jpg&f=1&nofb=1&ipt=b3c70cb3b05fa0e7b268bf25e77337159cf3e78b36ee56c839d3ced5c6548dfa",
+  caption: "📍 Hier mal ein Foto aus Rio 🌞",
+  alt: "Blick über Rio de Janeiro mit Zuckerhut und Christusstatue"
+};
+
+/* ---------- Zentrale Reisedaten ---------- */
+
+const TRIP = {
+  shipStart: new Date(2026, 9, 2),    // 02.10.2026 Einschiffung
+  worldStart: new Date(2026, 9, 18),  // 18.10.2026 Start Weltreise
+  worldEnd: new Date(2027, 1, 21),    // 21.02.2027 Rückkehr Hamburg
+  shipEnd: new Date(2027, 2, 2),      // 02.03.2027 Ausschiffung
+  worldDays: 126
+};
+
+const PHASES = [
+  { title:"Aufstieg & Vorbereitung", range:"02.10. – 18.10.2026", days:"16 Tage",
+    text:"Ich schiffe in Hamburg ein, lerne Schiff und Crew kennen und bereite alles für die große Reise vor.",
+    start:new Date(2026,9,2), end:new Date(2026,9,18) },
+  { title:"Hamburg → San Antonio (Chile)", range:"18.10. – 01.12.2026", days:"44 Tage",
+    text:"Über den Atlantik, vorbei an den Kanaren, tief in den Amazonas (u. a. Santarém und Boca da Valeria) und um das berühmte Kap Hoorn an der Südspitze Südamerikas.",
+    start:new Date(2026,9,18), end:new Date(2026,11,1) },
+  { title:"San Antonio → Mauritius", range:"01.12.2026 – 19.01.2027", days:"49 Tage",
+    text:"Über den Pazifik zur Osterinsel und durch die Südsee (Französisch-Polynesien, u. a. Tahiti), dann sechs Häfen in Australien — inklusive Silvester-Feuerwerk in Sydney am 31.12.",
+    start:new Date(2026,11,1), end:new Date(2027,0,19) },
+  { title:"Mauritius → Hamburg", range:"19.01. – 21.02.2027", days:"33 Tage",
+    text:"Über den Indischen Ozean (La Réunion), am Kap der Guten Hoffnung vorbei nach Kapstadt und Namibia, dann über die Kanaren zurück nach Hamburg.",
+    start:new Date(2027,0,19), end:new Date(2027,1,21) },
+  { title:"Ausklang & Abstieg", range:"21.02. – 02.03.2027", days:"9 Tage",
+    text:"Direkt im Anschluss startet laut Fahrplan eine kurze Nordland-Kreuzfahrt ab Hamburg — ich bin voraussichtlich bis zu meinem letzten Arbeitstag mit an Bord, bevor es nach Hause geht.",
+    start:new Date(2027,1,21), end:new Date(2027,2,2) }
+];
+
+/* Häfen der Weltreise
+   s/e = Datum, tz = UTC-Offset der Hafenzeit, lat/lon = Position
+   (für Bordzeit & Sonnenzeiten) */
+const PORTS = [
+  {s:"2026-10-21", e:"2026-10-21", name:"La Coruña", land:"Spanien", icon:"⛅", temp:18, overnight:false, phase:1, tz:2,    lat:43.37,  lon:-8.40},
+  {s:"2026-10-24", e:"2026-10-24", name:"Las Palmas (Gran Canaria)", land:"Spanien, Kanaren", icon:"☀️", temp:24, overnight:false, phase:1, tz:1, lat:28.13, lon:-15.43},
+  {s:"2026-10-27", e:"2026-10-27", name:"Mindelo (São Vicente)", land:"Kap Verde", icon:"☀️", temp:28, overnight:false, phase:1, tz:-1, lat:16.88, lon:-24.98},
+  {s:"2026-11-02", e:"2026-11-02", name:"Santarém", land:"Brasilien, Amazonas", icon:"🌦️", temp:32, overnight:false, phase:1, tz:-3, lat:-2.44, lon:-54.71},
+  {s:"2026-11-03", e:"2026-11-03", name:"Boca da Valéria", land:"Brasilien, Amazonas", icon:"🌦️", temp:32, overnight:false, phase:1, tz:-3, lat:-3.50, lon:-56.00},
+  {s:"2026-11-07", e:"2026-11-07", name:"Fortaleza", land:"Brasilien", icon:"☀️", temp:31, overnight:false, phase:1, tz:-3, lat:-3.72, lon:-38.50},
+  {s:"2026-11-10", e:"2026-11-10", name:"Ilhéus", land:"Brasilien", icon:"⛅", temp:29, overnight:false, phase:1, tz:-3, lat:-14.79, lon:-39.05},
+  {s:"2026-11-12", e:"2026-11-13", name:"Rio de Janeiro", land:"Brasilien", icon:"⛅", temp:28, overnight:true, phase:1, tz:-3, lat:-22.91, lon:-43.17},
+  {s:"2026-11-16", e:"2026-11-16", name:"Montevideo", land:"Uruguay", icon:"☀️", temp:22, overnight:false, phase:1, tz:-3, lat:-34.90, lon:-56.17},
+  {s:"2026-11-17", e:"2026-11-17", name:"Buenos Aires", land:"Argentinien", icon:"☀️", temp:24, overnight:false, phase:1, tz:-3, lat:-34.60, lon:-58.38},
+  {s:"2026-11-20", e:"2026-11-20", name:"Puerto Madryn", land:"Argentinien", icon:"⛅", temp:20, overnight:false, phase:1, tz:-3, lat:-42.77, lon:-65.04},
+  {s:"2026-11-23", e:"2026-11-23", name:"Ushuaia", land:"Argentinien", icon:"☁️", temp:10, overnight:false, phase:1, tz:-3, lat:-54.81, lon:-68.30},
+  {s:"2026-11-24", e:"2026-11-24", name:"Kap Hoorn (Vorbeifahrt)", land:"Chile", icon:"🌧️", temp:7, overnight:false, phase:1, tz:-3, lat:-55.98, lon:-67.28},
+  {s:"2026-11-28", e:"2026-11-28", name:"Puerto Montt", land:"Chile", icon:"⛅", temp:16, overnight:false, phase:1, tz:-3, lat:-41.47, lon:-72.94},
+  {s:"2026-11-30", e:"2026-12-01", name:"San Antonio (Santiago)", land:"Chile", icon:"☀️", temp:22, overnight:true, phase:1, tz:-3, lat:-33.59, lon:-71.61},
+
+  {s:"2026-12-06", e:"2026-12-06", name:"Osterinsel", land:"Chile", icon:"☀️", temp:23, overnight:false, phase:2, tz:-5, lat:-27.11, lon:-109.35},
+  {s:"2026-12-12", e:"2026-12-13", name:"Papeete (Tahiti)", land:"Französisch-Polynesien", icon:"🌦️", temp:30, overnight:true, phase:2, tz:-10, lat:-17.53, lon:-149.57},
+  {s:"2026-12-14", e:"2026-12-14", name:"Moorea", land:"Französisch-Polynesien", icon:"🌦️", temp:30, overnight:false, phase:2, tz:-10, lat:-17.54, lon:-149.83},
+  {s:"2026-12-15", e:"2026-12-15", name:"Uturoa (Raiatea)", land:"Französisch-Polynesien", icon:"🌦️", temp:30, overnight:false, phase:2, tz:-10, lat:-16.72, lon:-151.44},
+  {s:"2026-12-17", e:"2026-12-17", name:"Aitutaki", land:"Cookinseln", icon:"☀️", temp:29, overnight:false, phase:2, tz:-10, lat:-18.86, lon:-159.77},
+  {s:"2026-12-21", e:"2026-12-21", name:"Nuku'alofa", land:"Tonga", icon:"⛅", temp:28, overnight:false, phase:2, tz:13, lat:-21.14, lon:-175.20},
+  {s:"2026-12-23", e:"2026-12-23", name:"Suva (Viti Levu)", land:"Fidschi", icon:"🌦️", temp:30, overnight:false, phase:2, tz:12, lat:-18.14, lon:178.44},
+  {s:"2026-12-25", e:"2026-12-25", name:"Port Vila (Efate)", land:"Vanuatu", icon:"🌦️", temp:29, overnight:false, phase:2, tz:11, lat:-17.75, lon:168.32},
+  {s:"2026-12-26", e:"2026-12-26", name:"Mystery Island", land:"Vanuatu", icon:"☀️", temp:29, overnight:false, phase:2, tz:11, lat:-20.00, lon:167.20},
+  {s:"2026-12-27", e:"2026-12-27", name:"Lifou", land:"Neukaledonien", icon:"☀️", temp:28, overnight:false, phase:2, tz:11, lat:-20.92, lon:167.24},
+  {s:"2026-12-28", e:"2026-12-28", name:"Nouméa", land:"Neukaledonien", icon:"☀️", temp:28, overnight:false, phase:2, tz:11, lat:-22.28, lon:166.46},
+  {s:"2026-12-31", e:"2027-01-01", name:"Sydney (Silvester!)", land:"Australien", icon:"☀️", temp:26, overnight:true, phase:2, tz:11, lat:-33.87, lon:151.21},
+  {s:"2027-01-03", e:"2027-01-03", name:"Burnie", land:"Australien, Tasmanien", icon:"⛅", temp:21, overnight:false, phase:2, tz:11, lat:-41.05, lon:145.91},
+  {s:"2027-01-04", e:"2027-01-04", name:"Melbourne", land:"Australien", icon:"☀️", temp:26, overnight:false, phase:2, tz:11, lat:-37.81, lon:144.96},
+  {s:"2027-01-06", e:"2027-01-06", name:"Adelaide", land:"Australien", icon:"☀️", temp:29, overnight:false, phase:2, tz:10.5, lat:-34.93, lon:138.60},
+  {s:"2027-01-07", e:"2027-01-07", name:"Penneshaw (Kangaroo Island)", land:"Australien", icon:"☀️", temp:25, overnight:false, phase:2, tz:10.5, lat:-35.72, lon:137.96},
+  {s:"2027-01-11", e:"2027-01-11", name:"Fremantle (Perth)", land:"Australien", icon:"☀️", temp:31, overnight:false, phase:2, tz:8, lat:-32.06, lon:115.75},
+  {s:"2027-01-19", e:"2027-01-20", name:"Port Louis", land:"Mauritius", icon:"🌦️", temp:29, overnight:true, phase:2, tz:4, lat:-20.16, lon:57.50},
+
+  {s:"2027-01-21", e:"2027-01-21", name:"Saint-Denis", land:"La Réunion", icon:"🌦️", temp:28, overnight:false, phase:3, tz:4, lat:-20.88, lon:55.45},
+  {s:"2027-01-25", e:"2027-01-25", name:"Maputo", land:"Mosambik", icon:"☀️", temp:31, overnight:false, phase:3, tz:2, lat:-25.97, lon:32.58},
+  {s:"2027-01-27", e:"2027-01-27", name:"East London", land:"Südafrika", icon:"⛅", temp:26, overnight:false, phase:3, tz:2, lat:-33.02, lon:27.91},
+  {s:"2027-01-28", e:"2027-01-29", name:"Port Elizabeth", land:"Südafrika", icon:"☀️", temp:25, overnight:true, phase:3, tz:2, lat:-33.96, lon:25.61},
+  {s:"2027-01-31", e:"2027-01-31", name:"Kapstadt", land:"Südafrika", icon:"☀️", temp:27, overnight:false, phase:3, tz:2, lat:-33.90, lon:18.42},
+  {s:"2027-02-03", e:"2027-02-03", name:"Walvis Bay", land:"Namibia", icon:"☀️", temp:23, overnight:false, phase:3, tz:2, lat:-22.96, lon:14.51},
+  {s:"2027-02-11", e:"2027-02-11", name:"Praia (Santiago)", land:"Kap Verde", icon:"☀️", temp:26, overnight:false, phase:3, tz:-1, lat:14.93, lon:-23.51},
+  {s:"2027-02-14", e:"2027-02-14", name:"Santa Cruz de Tenerife", land:"Spanien, Kanaren", icon:"☀️", temp:21, overnight:false, phase:3, tz:0, lat:28.29, lon:-16.63},
+  {s:"2027-02-15", e:"2027-02-15", name:"Funchal (Madeira)", land:"Portugal", icon:"⛅", temp:19, overnight:false, phase:3, tz:0, lat:32.65, lon:-16.91},
+  {s:"2027-02-17", e:"2027-02-17", name:"Lissabon", land:"Portugal", icon:"⛅", temp:16, overnight:false, phase:3, tz:0, lat:38.71, lon:-9.14}
+];
+
+const PHASE_TITLES = {
+  1: "Phase 1 · Hamburg → San Antonio (Chile)",
+  2: "Phase 2 · San Antonio → Mauritius",
+  3: "Phase 3 · Mauritius → Hamburg"
+};
+
+/* Wegpunkte inkl. Start/Ziel (mit Zeitzone & Position) */
+const WAYPOINTS = [
+  { date:new Date(2026,9,18), end:new Date(2026,9,18), label:"Hamburg", land:"Deutschland · Start der Weltreise", type:"start", tz:2, lat:53.55, lon:9.99 },
+  ...PORTS.map(p => ({ date:pd(p.s), end:pd(p.e), label:p.name, land:p.land, overnight:p.overnight, tz:p.tz, lat:p.lat, lon:p.lon })),
+  { date:new Date(2027,1,21), end:new Date(2027,1,21), label:"Hamburg", land:"Deutschland · Rückkehr", type:"end", tz:1, lat:53.55, lon:9.99 }
+];
+
+/* ---------- Helfer ---------- */
+
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function pd(s){
+  const [y, m, d] = s.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function iso(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+function fmtShort(d){
+  return d.toLocaleDateString("de-DE", { day:"2-digit", month:"2-digit", year:"numeric" });
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"
+  }[c]));
+}
+
+function pad2(n){ return String(n).padStart(2,"0"); }
+
+function fmtTz(tz){
+  const sign = tz < 0 ? "−" : "+";
+  const a = Math.abs(tz);
+  const h = Math.floor(a);
+  const m = Math.round((a - h) * 60);
+  return "UTC" + sign + h + (m ? ":" + pad2(m) : "");
+}
+
+/* ---------- Polaroid + Lightbox ---------- */
+
+let polaroidOk = false;
+
+function initPolaroid(){
+  const img = document.getElementById("polaroidImg");
+  const cap = document.getElementById("polaroidCaption");
+  const box = document.getElementById("polaroidPhoto");
+
+  if (cap) cap.textContent = POLAROID.caption;
+  if (!img || !box) return;
+
+  function showPlaceholder(){
+    polaroidOk = false;
+    box.classList.remove("clickable");
+    box.removeAttribute("tabindex");
+    box.removeAttribute("role");
+    box.removeAttribute("aria-label");
+    box.removeAttribute("title");
+    box.classList.add("ph");
+    box.innerHTML = '<span class="cam" aria-hidden="true">📷</span><span>Foto folgt</span>';
+  }
+
+  if (!POLAROID.src) { showPlaceholder(); return; }
+
+  img.alt = POLAROID.alt || "Aktuelles Reisefoto";
+  img.addEventListener("error", showPlaceholder);
+  img.addEventListener("load", () => {
+    polaroidOk = true;
+    box.classList.add("clickable");
+    box.setAttribute("tabindex", "0");
+    box.setAttribute("role", "button");
+    box.setAttribute("aria-label", "Foto vergrößern");
+    box.setAttribute("title", "Klick zum Vergrößern");
+  });
+  img.src = POLAROID.src;
+}
+
+function initLightbox(){
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lightboxImg");
+  const lbCap = document.getElementById("lightboxCaption");
+  const closeBtn = document.getElementById("lightboxClose");
+  const photo = document.getElementById("polaroidPhoto");
+  if (!lb || !lbImg || !closeBtn || !photo) return;
+
+  function open(){
+    if (!polaroidOk || !POLAROID.src) return;
+    lbImg.src = POLAROID.src;
+    lbImg.alt = POLAROID.alt || "Vergrößertes Reisefoto";
+    if (lbCap) lbCap.textContent = POLAROID.caption;
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";   /* Scrollen sperren */
+    closeBtn.focus();
+  }
+
+  function close(){
+    lb.hidden = true;
+    document.body.style.overflow = "";
+    if (photo.hasAttribute("tabindex")) photo.focus();
+  }
+
+  /* Öffnen: Klick oder Enter/Leertaste auf dem Polaroid-Foto */
+  photo.addEventListener("click", open);
+  photo.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+
+  /* Schließen: X-Button */
+  closeBtn.addEventListener("click", close);
+
+  /* Schließen: Klick außerhalb des Bildes (auf den dunklen Hintergrund) */
+  lb.addEventListener("click", (e) => {
+    if (e.target.classList.contains("lightbox-backdrop")) close();
+  });
+
+  /* Schließen: Esc-Taste */
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !lb.hidden) close();
+  });
+}
+
+/* ---------- Schiffs-Kontext (Zeitzone + Position je Datum) ---------- */
+
+let currentCtx = null;
+
+function shipContext(today){
+  const first = WAYPOINTS[0];
+  const last = WAYPOINTS[WAYPOINTS.length - 1];
+
+  if (today < first.date) {
+    return { tz:first.tz, lat:first.lat, lon:first.lon, mode:"vor", label:"Hamburg" };
+  }
+  if (today > last.date) {
+    return { tz:last.tz, lat:last.lat, lon:last.lon, mode:"nach", label:"Hamburg" };
+  }
+
+  /* Im Hafen? */
+  for (const wp of WAYPOINTS) {
+    if (today >= wp.date && today <= wp.end) {
+      return { tz:wp.tz, lat:wp.lat, lon:wp.lon, mode:"hafen", label:wp.label };
+    }
+  }
+
+  /* Auf See: Position interpolieren, Bordzeit = nächster Hafen */
+  let prev = null, next = null;
+  for (const wp of WAYPOINTS) {
+    if (wp.date <= today) prev = wp;
+    else { next = wp; break; }
+  }
+  if (!prev || !next) return { tz:first.tz, lat:first.lat, lon:first.lon, mode:"vor", label:"Hamburg" };
+
+  const span = (next.date - prev.date) || 1;
+  const f = (today - prev.date) / span;
+
+  const lat = prev.lat + (next.lat - prev.lat) * f;
+  let dLon = next.lon - prev.lon;
+  if (dLon > 180) dLon -= 360;
+  if (dLon < -180) dLon += 360;
+  let lon = prev.lon + dLon * f;
+  if (lon > 180) lon -= 360;
+  if (lon < -180) lon += 360;
+
+  return { tz:next.tz, lat, lon, mode:"see", label:next.label };
+}
+
+/* ---------- Bordzeit-Uhr ---------- */
+
+function updateShipClock(){
+  const timeEl = document.getElementById("shipClock");
+  if (!timeEl || !currentCtx) return;
+
+  const now = new Date();
+  const ship = new Date(now.getTime() + currentCtx.tz * 3600000);
+  timeEl.textContent =
+    pad2(ship.getUTCHours()) + ":" + pad2(ship.getUTCMinutes()) + ":" + pad2(ship.getUTCSeconds());
+}
+
+function updateShipTzLabel(){
+  const lab = document.getElementById("shipTzLabel");
+  if (!lab || !currentCtx) return;
+
+  if (currentCtx.mode === "hafen") {
+    lab.textContent = "Uhr (Hafenzeit " + currentCtx.label + " · " + fmtTz(currentCtx.tz) + ")";
+  } else if (currentCtx.mode === "see") {
+    lab.textContent = "Uhr (Bordzeit " + fmtTz(currentCtx.tz) + " · nächster Halt: " + currentCtx.label + ")";
+  } else {
+    lab.textContent = "Uhr (Hamburg · " + fmtTz(currentCtx.tz) + ")";
+  }
+}
+
+/* ---------- Sonnenzeiten (Aufgang/Untergang) ---------- */
+
+function sunTimesUTC(date, lat, lon){
+  const rad = Math.PI / 180;
+  const zen = 90.833 * rad;
+
+  const doy = Math.round(
+    (Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) -
+     Date.UTC(date.getUTCFullYear(), 0, 1)) / 864e5
+  ) + 1;
+
+  const lnhour = lon / 15;
+
+  function core(t, isRise){
+    const M = (0.9856 * t - 3.289) * rad;
+    let L = M + (1.916 * Math.sin(M) + 0.020 * Math.sin(2 * M)) * rad + 282.634 * rad;
+    L = ((L % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
+
+    let RA = Math.atan(0.91764 * Math.tan(L));
+    RA = ((RA % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
+    const Lq  = Math.floor(L  / (Math.PI/2)) * (Math.PI/2);
+    const RAq = Math.floor(RA / (Math.PI/2)) * (Math.PI/2);
+    RA += (Lq - RAq);
+    RA = RA / rad / 15;
+
+    const sinDec = 0.39782 * Math.sin(L);
+    const cosDec = Math.cos(Math.asin(sinDec));
+
+    const cosH = (Math.cos(zen) - sinDec * Math.sin(lat*rad)) / (cosDec * Math.cos(lat*rad));
+    if (cosH > 1)  return { err:"norise" };
+    if (cosH < -1) return { err:"noset" };
+
+    let H = isRise ? 360 - Math.acos(cosH)/rad : Math.acos(cosH)/rad;
+    H /= 15;
+
+    const T = H + RA - 0.06571 * t - 6.622;
+    let UT = T - lnhour;
+    UT = ((UT % 24) + 24) % 24;
+    return { UT };
+  }
+
+  const r = core(doy + ((6  - lnhour) / 24), true);
+  const s = core(doy + ((18 - lnhour) / 24), false);
+
+  return { rise:r.UT, set:s.UT, err:r.err || s.err || null };
+}
+
+function fmtHours(h){
+  let hh = Math.floor(h);
+  let mm = Math.round((h - hh) * 60);
+  if (mm === 60) { mm = 0; hh += 1; }
+  return pad2(hh % 24) + ":" + pad2(mm);
+}
+
+function updateSun(today){
+  const chip = document.getElementById("sunChip");
+  const ico = document.getElementById("sunIco");
+  const title = document.getElementById("sunTitle");
+  const riseEl = document.getElementById("sunrise");
+  const setEl = document.getElementById("sunset");
+  if (!title || !currentCtx) return;
+
+  const res = sunTimesUTC(today, currentCtx.lat, currentCtx.lon);
+
+  if (res.err) {
+    title.textContent = res.err === "norise" ? "Polarnacht – Sonne bleibt unten" : "Mitternachtssonne 🌞";
+    if (riseEl) riseEl.textContent = "--:--";
+    if (setEl) setEl.textContent = "--:--";
+    return;
+  }
+
+  const tz = currentCtx.tz;
+  const riseL = (res.rise + tz + 48) % 24;
+  const setL  = (res.set  + tz + 48) % 24;
+
+  if (riseEl) riseEl.textContent = fmtHours(riseL);
+  if (setEl) setEl.textContent = fmtHours(setL);
+
+  /* Tag oder Nacht an Bord? */
+  const ship = new Date(Date.now() + tz * 3600000);
+  const nowH = ship.getUTCHours() + ship.getUTCMinutes()/60 + ship.getUTCSeconds()/3600;
+  const isDay = nowH >= riseL && nowH < setL;
+
+  if (title) title.textContent = isDay ? "Tag an Bord 🌞" : "Nacht an Bord 🌙";
+  if (ico) ico.textContent = isDay ? "🌞" : "🌙";
+  if (chip) chip.classList.toggle("night", !isDay);
+}
+
+/* ---------- Theme (Tag / Nacht) ---------- */
+
+function syncThemeUI(){
+  const t = document.documentElement.dataset.theme || "day";
+  const btn = document.getElementById("themeToggle");
+  const icon = document.getElementById("themeIcon");
+  const sky = document.getElementById("skyIcon");
+
+  if (icon) icon.textContent = t === "day" ? "🌙" : "☀️";
+  if (btn) btn.setAttribute("aria-label", t === "day" ? "Nachtmodus aktivieren" : "Tagmodus aktivieren");
+  if (sky) sky.textContent = t === "day" ? "☀️" : "🌙";
+}
+
+function initTheme(){
+  syncThemeUI();
+  const btn = document.getElementById("themeToggle");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const cur = document.documentElement.dataset.theme || "day";
+    const next = cur === "day" ? "night" : "day";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("aidasol_theme", next); } catch (e) {}
+    syncThemeUI();
+  });
+}
+
+/* ---------- Begrüßung bei erneutem Besuch ---------- */
+
+function welcome(){
+  const el = document.getElementById("welcome");
+  if (!el) return;
+
+  try {
+    const now = Date.now();
+    const first = localStorage.getItem("aidasol_first");
+    const last = localStorage.getItem("aidasol_last");
+
+    if (!first) {
+      localStorage.setItem("aidasol_first", String(now));
+    } else {
+      const ref = last ? parseInt(last, 10) : parseInt(first, 10);
+      if (ref && isFinite(ref)) {
+        const d = new Date(ref);
+        el.hidden = false;
+        el.innerHTML = "👋 Schön, dass ihr wieder da seid! Euer letzter Besuch war am <strong>" +
+          d.toLocaleDateString("de-DE", { day:"2-digit", month:"2-digit", year:"numeric" }) +
+          "</strong>.";
+      }
+    }
+
+    localStorage.setItem("aidasol_last", String(now));
+  } catch (e) {
+    /* localStorage nicht verfügbar – dann einfach keine Begrüßung */
+  }
+}
+
+/* ---------- Countdown ---------- */
+
+let cdTarget = null;
+let lastDayDate = new Date().getDate();
+
+function renderCountdownMode(today){
+  const title = document.getElementById("cdTitle");
+  const sub = document.getElementById("cdSub");
+  if (!title || !sub) return;
+
+  if (today < TRIP.worldStart) {
+    cdTarget = TRIP.worldStart;
+    title.textContent = "Countdown bis zum Start der Weltreise";
+    sub.textContent = "Am 18.10.2026 heißt es: Leinen los!";
+  } else if (today <= TRIP.worldEnd) {
+    cdTarget = TRIP.worldEnd;
+    title.textContent = "Live dabei – Countdown bis zur Rückkehr";
+    sub.textContent = "Ich denk an euch und bring euch eine Geschichte mit!";
+  } else if (today <= TRIP.shipEnd) {
+    cdTarget = TRIP.shipEnd;
+    title.textContent = "Countdown bis zum Wiedersehen";
+    sub.textContent = "Bald bin ich wieder zu Hause bei euch.";
+  } else {
+    cdTarget = null;
+    title.textContent = "Zurück in Hamburg! 🏁";
+    sub.textContent = "Die Reise ist geschafft – danke, dass ihr an mich gedacht habt!";
+  }
+}
+
+function setBox(id, v){
+  const el = document.getElementById(id);
+  if (el) el.textContent = String(v).padStart(2, "0");
+}
+
+function tickCountdown(){
+  const now = new Date();
+
+  /* Tageswechsel erkennen, damit alles automatisch umschaltet */
+  if (now.getDate() !== lastDayDate) daily();
+
+  if (!cdTarget) {
+    ["cdD","cdH","cdM","cdS"].forEach(id => setBox(id, "00"));
+    return;
+  }
+
+  let diff = cdTarget - now;
+  if (diff < 0) diff = 0;
+
+  const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+  const h = Math.floor(diff / 3600000);  diff -= h * 3600000;
+  const m = Math.floor(diff / 60000);    diff -= m * 60000;
+  const s = Math.floor(diff / 1000);
+
+  setBox("cdD", d);
+  setBox("cdH", h);
+  setBox("cdM", m);
+  setBox("cdS", s);
+}
+
+/* ---------- Reisefortschritt ---------- */
+
+function renderProgress(today){
+  const start = TRIP.worldStart;
+  const end = TRIP.worldEnd;
+
+  let pct = 0;
+  let label = "Noch vor der Weltreise";
+
+  if (today >= start && today <= end) {
+    const total = end - start;
+    const done = today - start;
+    pct = Math.max(0, Math.min(100, Math.round(done / total * 100)));
+    const day = Math.min(TRIP.worldDays, Math.floor(done / 86400000) + 1);
+    label = "Tag " + day + " von " + TRIP.worldDays;
+  } else if (today > end) {
+    pct = 100;
+    label = "Weltreise abgeschlossen";
+  }
+
+  const pctEl = document.getElementById("pct");
+  const fill = document.getElementById("barFill");
+  const ship = document.getElementById("shipPos");
+  const sub = document.getElementById("progressSub");
+
+  if (pctEl) pctEl.textContent = pct + " %";
+  if (fill) fill.style.width = pct + "%";
+  if (ship) ship.style.left = pct + "%";
+  if (sub) sub.textContent = label;
+}
+
+/* ---------- Etappen ---------- */
+
+function renderPhases(today){
+  document.querySelectorAll(".phase").forEach((el, i) => {
+    const p = PHASES[i];
+    if (!p) return;
+
+    const badge = el.querySelector(".phase-badge");
+    const active = today >= p.start && today <= p.end;
+    const done = today > p.end;
+
+    el.classList.toggle("active", active);
+    el.classList.toggle("done", done);
+
+    if (badge) {
+      if (active) {
+        badge.hidden = false;
+        badge.textContent = "📍 Gerade hier";
+      } else if (done) {
+        badge.hidden = false;
+        badge.textContent = "✓ Abgeschlossen";
+      } else {
+        badge.hidden = true;
+        badge.textContent = "";
+      }
+    }
+  });
+}
+
+/* ---------- Häfen rendern ---------- */
+
+function waypointHTML(wp, today){
+  let cls = "waypoint-card " + (wp.type || "");
+  let badge = "";
+
+  if (today > wp.date) {
+    cls += " visited";
+    badge = '<span class="port-check" aria-hidden="true">✓</span>';
+  } else if (today.getTime() === wp.date.getTime()) {
+    cls += " today";
+    badge = '<span class="port-pin" aria-hidden="true">📍</span>';
+  }
+
+  const icon = wp.type === "start" ? "🚢" : "🏁";
+  const tag = wp.type === "start" ? "Start" : "Ziel";
+
+  return '<div class="' + cls + '">' +
+    '<div class="port-ico" aria-hidden="true">' + icon + '</div>' +
+    '<div class="port-info">' +
+      '<div class="port-name">' + esc(wp.label) + ' <span class="port-tag">' + tag + '</span></div>' +
+      '<div class="port-land">' + esc(wp.land) + '</div>' +
+      '<div class="port-meta"><span class="port-date"><time datetime="' + iso(wp.date) + '">' + fmtShort(wp.date) + '</time></span></div>' +
+    '</div>' +
+    badge +
+  '</div>';
+}
+
+function renderPorts(today){
+  const list = document.getElementById("portList");
+  if (!list) return;
+
+  let html = "";
+  let lastPhase = 0;
+
+  html += waypointHTML({ date:TRIP.worldStart, label:"Hamburg", land:"Deutschland · Start der Weltreise", type:"start" }, today);
+
+  PORTS.forEach(p => {
+    if (p.phase !== lastPhase) {
+      html += '<h4 class="phase-header">' + esc(PHASE_TITLES[p.phase]) + '</h4>';
+      lastPhase = p.phase;
+    }
+
+    const s = pd(p.s);
+    const e = pd(p.e);
+
+    let cls = "port-card";
+    let badge = "";
+
+    if (p.overnight) cls += " overnight";
+
+    if (today > e) {
+      cls += " visited";
+      badge = '<span class="port-check" aria-hidden="true">✓</span>';
+    } else if (today >= s && today <= e) {
+      cls += " today";
+      badge = '<span class="port-pin" aria-hidden="true">📍</span>';
+    }
+
+    const dateLabel = s.getTime() === e.getTime()
+      ? fmtShort(s)
+      : fmtShort(s) + " – " + fmtShort(e);
+
+    html += '<div class="' + cls + '">' +
+      '<div class="port-ico" aria-hidden="true">' + p.icon + '</div>' +
+      '<div class="port-info">' +
+        '<div class="port-name">' + esc(p.name) + (p.overnight ? ' <span class="port-anchor" title="Übernachtung im Hafen">⚓︎</span>' : '') + '</div>' +
+        '<div class="port-land">' + esc(p.land) + '</div>' +
+        '<div class="port-meta">' +
+          '<span class="port-date"><time datetime="' + p.s + '">' + dateLabel + '</time></span>' +
+          '<span class="port-temp">' + p.temp + ' °C</span>' +
+        '</div>' +
+      '</div>' +
+      badge +
+    '</div>';
+  });
+
+  html += waypointHTML({ date:TRIP.worldEnd, label:"Hamburg", land:"Deutschland · Rückkehr", type:"end" }, today);
+
+  list.innerHTML = html;
+}
+
+/* ---------- Wo bin ich heute? ---------- */
+
+function renderWhere(today){
+  const title = document.getElementById("whereTitle");
+  const text = document.getElementById("whereText");
+  const badge = document.getElementById("whereBadge");
+  if (!title || !text) return;
+
+  let res;
+
+  if (today < TRIP.worldStart) {
+    res = { title:"Noch in Hamburg ⚓", text:"Die große Weltreise startet am 18.10.2026." };
+  } else if (today > TRIP.worldEnd) {
+    res = { title:"Zurück in Hamburg 🏁", text:"Die Weltreise ist beendet." };
+  } else {
+    let prev = null;
+    let found = null;
+
+    for (const wp of WAYPOINTS) {
+      if (today >= wp.date && today <= wp.end) {
+        found = wp;
+        break;
+      }
+      if (wp.date > today) break;
+      prev = wp;
+    }
+
+    if (found) {
+      res = {
+        title: "Heute im Hafen: " + found.label,
+        text: found.land || "",
+        overnight: !!found.overnight
+      };
+    } else {
+      const next = WAYPOINTS.find(w => w.date > today);
+
+      if (prev && next) {
+        res = {
+          title: "Auf See 🌊",
+          text: "Zwischen " + prev.label + " und " + next.label +
+                " · nächster Halt: " + next.label + " am " + fmtShort(next.date)
+        };
+      } else if (prev) {
+        res = {
+          title: "Auf dem Rückweg nach Hamburg",
+          text: "Nächster Halt: Hamburg am " + fmtShort(TRIP.worldEnd)
+        };
+      } else {
+        res = { title:"Auf See", text:"" };
+      }
+    }
+  }
+
+  title.textContent = res.title;
+  text.textContent = res.text || "";
+
+  if (badge) {
+    if (res.overnight) {
+      badge.hidden = false;
+      badge.textContent = "⚓︎ Übernachtung im Hafen";
+    } else {
+      badge.hidden = true;
+      badge.textContent = "";
+    }
+  }
+}
+
+/* ---------- Wiedersehen ---------- */
+
+function renderReunion(today){
+  const t = document.getElementById("reunionTitle");
+  const x = document.getElementById("reunionText");
+  if (!t || !x) return;
+
+  const end = TRIP.shipEnd;
+
+  if (today.getTime() === end.getTime()) {
+    t.textContent = "Heute ist es soweit! ♥";
+    x.textContent = "Ich bin zurück in Hamburg – kommt mich abholen und drückt mich fest!";
+    return;
+  }
+
+  if (today > end) {
+    t.textContent = "Ihr habt mich wieder! ♥";
+    x.textContent = "Die Reise ist vorbei und ich bin wieder zu Hause. Danke, dass ihr so toll mitgefiebert habt!";
+    return;
+  }
+
+  const diff = Math.ceil((end - today) / 86400000);
+  t.textContent = "Noch " + diff + " Tage";
+  x.textContent = "… dann könnt ihr mich wieder in die Arme schließen. Ich freu mich riesig auf euch! ♥";
+}
+
+/* ---------- Uhr zu Hause ---------- */
+
+function updateClock(){
+  const el = document.getElementById("clock");
+  if (!el) return;
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("de-DE", { weekday:"long", day:"2-digit", month:"long", year:"numeric" });
+  const timeStr = now.toLocaleTimeString("de-DE", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
+
+  el.textContent = dateStr + " · " + timeStr + " Uhr";
+}
+
+/* ---------- Tages-Update ---------- */
+
+function daily(){
+  const now = new Date();
+  lastDayDate = now.getDate();
+
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  currentCtx = shipContext(today);
+  updateShipTzLabel();
+  updateSun(today);
+
+  renderCountdownMode(today);
+  renderProgress(today);
+  renderPhases(today);
+  renderPorts(today);
+  renderWhere(today);
+  renderReunion(today);
+}
+
+/* ---------- Nach oben ---------- */
+
+function initToTop(){
+  const btn = document.getElementById("toTop");
+  if (!btn) return;
+
+  addEventListener("scroll", () => {
+    btn.classList.toggle("show", scrollY > 400);
+  }, { passive:true });
+
+  btn.addEventListener("click", () => {
+    scrollTo({ top:0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
+/* ---------- Scroll-Reveal ---------- */
+
+function initReveal(){
+  const els = document.querySelectorAll(".reveal");
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    els.forEach(el => el.classList.add("visible"));
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold:.12 });
+
+  els.forEach(el => io.observe(el));
+}
+
+/* ---------- Start ---------- */
+
+initTheme();
+initPolaroid();
+initLightbox();
+welcome();
+daily();
+tickCountdown();
+updateClock();
+updateShipClock();
+
+setInterval(tickCountdown, 1000);
+setInterval(updateClock, 1000);
+setInterval(updateShipClock, 1000);
+setInterval(() => {
+  const now = new Date();
+  if (now.getDate() !== lastDayDate) daily();
+}, 60000);
+
+initToTop();
+initReveal();
+</script>
+</body>
+</html>
